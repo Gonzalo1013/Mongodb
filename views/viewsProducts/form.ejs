@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include('./templates/head.ejs') %>
+    <%- include('../templates/head.ejs') %>
 
 <body>
-    <%- include('./templates/nav.ejs') %>
+    <%- include('../templates/nav.ejs') %>
+    <h3>Agregar un producto a la lista</h3>
     <div>
         <form action="/api/products/add" enctype="multipart/form-data" method="POST" class="container" style="max-width: 500px;">
             <div>

@@ -8,4 +8,8 @@ router.get('/', (req, res)=>{
     res.send('cart todo ok')
 })
 
+let asd = Date.now()
+console.log(asd);
+
+
 module.exports = router

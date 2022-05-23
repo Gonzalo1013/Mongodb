@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%-include('./templates/head')%>
+    <%-include('../templates/head')%>
 
 <body>
-    <%-include('./templates/nav.ejs')%>
-    <h1>Hols soy get by ID</h1>
+    <%-include('../templates/nav.ejs')%>
+    <!-- <h1>Hols soy get by ID</h1> -->
     
-    <div class="card" style="width: 18rem;">
+    <div class="card container" style="width: 18rem; margin-top: 32px;">
         <img src="/public/uploads/<%=data.thumbnail %>" class="card-img-top" alt="<%= data.title %>">
         <div class="card-body">
             <h5 class="card-title"><%= data.title %></h5>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%-include('./templates/head')%>
-
-<body>
-    <%-include('./templates/nav.ejs')%>
-    <h1>Hols soy INDEX</h1>
+    <%-include('../templates/head')%>
+    <link rel="stylesheet" href="/public/css/main.Products.css">
+<body class="body">
+    <%-include('../templates/nav.ejs')%>
+    <!-- <h1>Hols soy INDEX</h1> -->
+    <main class="main-all-products">
     <% data.forEach( x => {%>
-        <li class="card" style="width: 18rem;">
+        <li class="card box" >
             <img src="/public/uploads/<%= x.thumbnail %>" class="card-img-top" alt="<%= x.thumbnail %>">
             <div class="card-body">
               <h5 class="card-title"><%= x.title %></h5>
@@ -18,6 +19,7 @@
               <input type="submit" value="add to cart" class="btn btn-primary">
             </div>
           </li>
-    <% }) %>
+          <% }) %>
+      </main>
 </body>
 </html>

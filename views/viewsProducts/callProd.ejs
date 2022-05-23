@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-<%-include('./templates/head.ejs')%>
+<%-include('../templates/head.ejs')%>
 <body>
-    <%-include('./templates/nav.ejs')%>
+    <%-include('../templates/nav.ejs')%>
     <h3>Completar todos los campos. En el caso de que algun dato o datos no necesiten ser cambiados poner el que dice la img</h3>
     <main  style="display:flex; flex-direction:row; justify-content: space-evenly;">
 
@@ -55,5 +55,6 @@
             </div>
         </div>
     </main>
+    <a class="btn btn-primary" href="/api/products/put">Buscar otro producto</a>
 </body>
 </html>

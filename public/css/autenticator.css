@@ -1,0 +1,28 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+}
+
+.body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+}
+
+.body .box{
+    background-color: red;
+    padding: 32px;
+    border-radius: 20px;
+    width: 500px;
+    overflow: hidden;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.body .box .h3{
+    color: azure;
+    margin-bottom: 32px;
+}

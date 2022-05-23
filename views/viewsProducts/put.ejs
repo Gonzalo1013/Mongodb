@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include('../templates/head.ejs')%>
+<body>
+    <%-include('../templates/nav.ejs')%> 
+    <h3> Busca el producto que desea modificar</h3>
+
+    <form action="/api/products/callProd" class="container" method="POST" style="max-width: 500px;">
+        <input type="number" name="idnumber" placeholder="ID" class="form-control"  required>
+        <input type="submit" class="btn btn-primary" placeholder="Buscar">
+    </form>
+    
+</body>
+</html>

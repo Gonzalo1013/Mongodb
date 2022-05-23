@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%-include('./templates/head.ejs')%>
+    <%-include('../templates/head.ejs')%>
 <body>
-    <%-include('./templates/nav.ejs')%>
+    <%-include('../templates/nav.ejs')%>
     
-    <h1>Selecciona el numero de ID del producto deseado</h1>
+    <h3>Selecciona el ID del producto deseado</h3>
     <form action="/api/products/get" class="container" style="max-width: 500px;"  method="POST">
         <input type="number" name="numero" class="form-control" placeholder="ID:" required>
         <input type="submit" value="Buscar" class="btn btn-primary">
