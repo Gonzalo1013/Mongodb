@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%-include('./templates/head.ejs')%>
+<body>
+    <%-include('./templates/nav.ejs')%>
+    <h1>
+        yo elimino todo!!
+    </h1>
+    <form action="/api/products/deletePr" class="container" style="max-width: 500px;"  method="post">
+        <input type="number" name="idd" class="form-control" placeholder="ID:" required>
+        <input type="submit" value="Eliminar" class="btn btn-primary">
+    </form>
+</body>
+</html>

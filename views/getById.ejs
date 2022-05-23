@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%-include('./templates/head')%>
+
+<body>
+    <%-include('./templates/nav.ejs')%>
+    <h1>Hols soy get by ID</h1>
+    
+    <div class="card" style="width: 18rem;">
+        <img src="<%= data.thumbnail %>" class="card-img-top" alt="<%= data.title %>">
+        <div class="card-body">
+            <h5 class="card-title"><%= data.title %></h5>
+            <p class="card-text"><%= data.description %></p>
+            <b>$<%= data.price%></b>
+            <p>stock:<%= data.stock%></p>
+            <p>publicado el dia: <%= data.timestamp %></p>   
+            <input type="submit" value="add to cart" class="btn btn-primary">
+        </div>
+    </div>
+
+    
+    <a class="btn btn-primary" href="/api/products/findId">Buscar otro producto</a>
+</body>
+</html>
