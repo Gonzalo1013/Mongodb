@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<%-include('./templates/head.ejs')%>
+<body>
+    <%-include('./templates/nav.ejs')%>
+    <h3>Completar todos los campos. En el caso de que algun dato o datos no necesiten ser cambiados poner el que dice la img</h3>
+    <main  style="display:flex; flex-direction:row; justify-content: space-evenly;">
+
+        <form action="/api/products/change" enctype="multipart/form-data" method="POST"  style="max-width: 500px;">
+            
+            <div>
+                <label for="" class="form-label">Title</label>
+                <input type="text" name="title" class="form-control" required>
+            </div>
+            <div>
+                <label for="" class="form-label">Description</label>
+                <input type="text" name="description" class="form-control" required>
+            </div>
+            <div>
+                <label for="" class="form-label">Price</label>
+                <input type="number" name="price" class="form-control" required>
+            </div>
+            <div>
+                <label for="" class="form-label">Stock</label>
+                <input type="number" name="stock" class="form-control" required>
+            </div>
+
+            
+            <div>
+                <label for="" class="form-label">ID: <%= data.id%></label>
+                <input type="hidden" name="id" class="form-control" required value="<%= data.id%>">
+            </div>
+            <div>
+                <label for="" class="form-label">CODE: <%= data.code%></label>
+                <input type="hidden" name="code" class="form-control" required value="<%= data.code%>">
+            </div>
+
+            <div>
+                <label for="" class="form-label">Buscar img</label>
+                <input type="file" name="thumbnail" required class="form-control">
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary form-control" value="Realizar cambios" style="margin-top:16px ;">
+            </div>
+        </form>
+        
+        <div class="card" style="width: 18rem;">
+            <img src="/public/uploads/<%-data.thumbnail %>" class="card-img-top" alt="<%= data.title %>">
+            <div class="card-body">
+                <h5 class="card-title"><%= data.title %></h5>
+                <p class="card-text"><%= data.description %></p>
+                <b>$<%= data.price%></b>
+                <p>stock:<%= data.stock%></p>
+                <p>publicado el dia: <%= data.timestamp %></p>        
+            </div>
+        </div>
+    </main>
+</body>
+</html>

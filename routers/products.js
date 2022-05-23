@@ -6,8 +6,21 @@ const router = new Router()
 
 const arrayOfProducts = [];
 
-//Mostrar todos los PRODUCTOS
+//Mostrar todos los PRODUCTOS en  postman
 router.get('/getAll', (req, res)=>{
+    fs.readFile('./jsons/products.json' , 'utf-8' , (err,data) =>{
+        if(err){
+            res.send({message:'No se pudo leer el archivo' })
+        }else if(data === ''){
+            res.send({message: 'No hay ningun Producto cargado'})
+        }else{
+            let products = JSON.parse(data)
+            res.send(products)
+        }
+    })
+})
+//Mostrar todos los PRODUCTOS en web
+router.get('/product', (req, res)=>{
     fs.readFile('./jsons/products.json' , 'utf-8' , (err,data) =>{
         if(err){
             res.send({message:'No se pudo leer el archivo' })
@@ -21,25 +34,23 @@ router.get('/getAll', (req, res)=>{
 })
 
 //MOSTRAR PRODUCTO POR ID en Postman
-// router.get(`/getPostman/:id`, (req, res) => {
-//     let idItem = req.params.id
-//     let id = JSON.parse(idItem)
-//     fs.readFile('./jsons/products.json' , 'utf-8' , (err,data) =>{
-//         if(err){
-//             res.send({message: 'No se pudo leer el archivo'})
-//         }else{
-//             let product = JSON.parse(data)
-//             let itemFound = product.find( x => x.id === id )
-//             if(!itemFound){
-//                 res.send({message: 'El producto no existe'})
-//             }else{
-//                 // res.send(itemFound)
-//                 console.log(itemFound);
-//                 res.render('getById', {data:itemFound})
-//             }
-//         }
-//     })
-// })
+router.get(`/getPostman/:id`, (req, res) => {
+    let idItem = req.params.id
+    let id = JSON.parse(idItem)
+    fs.readFile('./jsons/products.json' , 'utf-8' , (err,data) =>{
+        if(err){
+            res.send({message: 'No se pudo leer el archivo'})
+        }else{
+            let product = JSON.parse(data)
+            let itemFound = product.find( x => x.id === id )
+            if(!itemFound){
+                res.send({message: 'El producto no existe'})
+            }else{
+                res.send(itemFound)
+            }
+        }
+    })
+})
 
 //MOSTRAR UN PORDUCTO POR ID EN LA WEB
 router.get('/findId', (req, res) => {
@@ -123,7 +134,6 @@ router.post('/add' , upload.single('thumbnail'), (req, res) => {
             let arr = JSON.parse(data)
             let newId = arr[arr.length-1].id +1
             
-
             let {title, description, price, stock} = req.body
             let newProduct = {
                 title,
@@ -136,7 +146,6 @@ router.post('/add' , upload.single('thumbnail'), (req, res) => {
                 timestamp: times
             }
             arr.push(newProduct)
-            console.log(newProduct);
             fs.writeFile('./jsons/products.json' , JSON.stringify(arr), 'utf-8', (err) => {
                 if(err){
                     res.send({message: 'Error al cargar producto'})
@@ -153,7 +162,6 @@ router.post('/add' , upload.single('thumbnail'), (req, res) => {
 router.put('/change/:id' , (req, res) => {
     let idItem = req.params.id-1
     let idIndex = JSON.parse(idItem)
-
     fs.readFile('./jsons/products.json', 'utf-8', (err, data)=> {
         if(err){
             res.send({message: 'Error de lectura'})
@@ -176,39 +184,100 @@ router.put('/change/:id' , (req, res) => {
         }
     })
 })
+router.get('/put', (req, res)=> {
+    res.render('put')
+})
+router.post('/callProd', (req, res) => {
+    let {idnumber} = req.body
+    let idd = JSON.parse(idnumber)
+    fs.readFile('./jsons/products.json', 'utf-8', (err, data) => {
+        if(err){
+            res.send({message: 'Error al buscar Archivo'})
+        }else{
+            let product = JSON.parse(data)
+            let itemFound = product.find(x => x.id === idd)
+            if(!itemFound){
+                res.send({message: 'El producto no existe'})
+            }else{
+                res.render('callProd', {data:itemFound})
+            }
+        }
+    })
+})
+router.post('/change' , upload.single('thumbnail') , (req, res) => {
+    let date= new Date()
+    let times = date.toLocaleDateString() + ' ' + date.toLocaleTimeString()
 
+    let {title, description, price, stock, id, code} = req.body
+    let changeObj = {
+        title,
+        description,
+        price,
+        stock,
+        thumbnail: req.file.filename,
+        id,
+        code,
+        timestamp: times
+    }
 
+    fs.readFile('./jsons/products.json', 'utf-8', (err, data) => {
+        if(err){
+            res.send({message:'Error al cargar'})
+        }else{
+            let product = JSON.parse(data)
+            let idd = JSON.parse(changeObj.id)
+            let itemFound = product.find(x => x.id === idd)
+            let ind = product.indexOf(itemFound)
+            
+            product[ind]["title"] = req.body.title
+            product[ind]["description"] = req.body.desciption
+            product[ind]["price"] = req.body.price
+            product[ind]["stock"] = req.body.stock
+            product[ind]["thumbnail"] = changeObj.thumbnail
+
+            fs.writeFile('./jsons/products.json', JSON.stringify(product), 'utf-8' , (err) => {
+                if(err){
+                    res.send({message: 'No se pudo actualizar el producto'})
+                }
+            })
+        }
+    })
+    res.render('put')
+    // res.send({message: 'El producto se actualizo correctamente!'})
+})
 //Eliminar un producto en Postman
 
 
-// router.delete('/delete/:id' , (req, res) => {
-//     let idItem = req.params.id
-//     let idIndex = JSON.parse(idItem)
-//     fs.readFile('./jsons/products.json', 'utf-8', (err, data) => {
-//         if(err){
-//             res.send({message: 'Error de lectura'})
-//         }else{
-//             let product = JSON.parse(data)
-//             let itemFound = product.find(x => x.id === idIndex)
+router.delete('/delete/:id' , (req, res) => {
+    let idItem = req.params.id
+    let idIndex = JSON.parse(idItem)
+    fs.readFile('./jsons/products.json', 'utf-8', (err, data) => {
+        if(err){
+            res.send({message: 'Error de lectura'})
+        }else{
+            let product = JSON.parse(data)
+            let itemFound = product.find(x => x.id === idIndex)
 
-//             if(itemFound){
-//                 let index = product.indexOf(itemFound)
-//                 if(index > -1){
-//                     product.splice(index, 1)
+            if(!itemFound){
+                res.send({message: 'No se encontro el producto'})
+            }else{
+                let index = product.indexOf(itemFound)
+                if(index > -1){
+                    product.splice(index, 1)
 
-//                     fs.writeFile('./jsons/products.json' , JSON.stringify(product), 'utf-8', (err) => {
-//                         if(err){
-//                             res.send({message: 'Error al Eliminar producto'})
-//                             }else{
-//                                 res.send({message: `El producto fue eliminado exitosamente!`})
-//                             }
-//                     })
-//                 }
-//                 res.send({message: `El producto con ID: ${idItem}  fue eliminado con exitos!` })
-//             }
-//         }
-//     })
-// })
+                    fs.writeFile('./jsons/products.json' , JSON.stringify(product), 'utf-8', (err) => {
+                        if(err){
+                            res.send({message: 'Error al Eliminar producto'})
+                            }else{
+                                res.send({message: `El producto fue eliminado exitosamente!`})
+                            }
+                    })
+                }
+                res.send({message: `El producto con ID: ${idItem}  fue eliminado con exitos!` })
+            }
+        }
+    })
+})
 
 
 //Eliminar un producto en la web
