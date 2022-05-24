@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="/public/css/main.Products.css">
 <body class="body">
     <%-include('../templates/nav.ejs')%>
-    <!-- <h1>Hols soy INDEX</h1> -->
+    <h1 id="asd">Hols soy INDEX</h1>
     <main class="main-all-products">
     <% data.forEach( x => {%>
         <li class="card box" >
@@ -16,7 +16,7 @@
               <b>$<%= x.price%></b>
               <p>stock:<%= x.stock%></p>
               <p>publicado el dia: <%= x.timestamp %></p>   
-              <input type="submit" value="add to cart" class="btn btn-primary">
+              <input type="submit" value="add to cart" class="btn btn-primary" id="submit">
             </div>
           </li>
           <% }) %>
