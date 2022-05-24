@@ -11,7 +11,7 @@ router.get('/:id/products' , (req, res) => {
         }else{
             let products = JSON.parse(data)
             products.forEach(x => {
-                res.send(x.productos)
+                res.render('cart', {data: x.productos})
             })
         }
     })
