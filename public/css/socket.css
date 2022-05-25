@@ -1,21 +1,116 @@
-.body .chat__box{
-    position: absolute;
-    top: 80px;
-    right: 16px;
-    bottom: 0;
-    width: 300px;
-    height: 100%;
-    border: solid black;
-}
-.body .chat__box .box .form{
-    height: 100%;
+
+.main{
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
 }
 
-.body .chat__box .box{
-    height: 70%;
+.main .chat__box{
+    width: 95%;
+    height: 600px;
     border: solid black;
+    background-size: contain;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2c2c2c;
+    border-radius: 20px;
+    color: #000;
+}
+.main .chat__box .box {
+    height: 100%;
+    width: 95%;
+    border-radius: 20px;
     margin: 16px;
-}
-/* .body .chat__box .box .form .name_box{
+    background-color: #ebebeb;
+    color: #fff;
+    overflow: hidden;
+    color: #000;
+    padding: 16px;
+    overflow-y: scroll;
 
-} */
+}
+.box::-webkit-scrollbar{
+    width: 7px;
+}
+.box::-webkit-scrollbar-thumb{
+    background-color: orange;
+    border-radius: 10px;
+}
+
+.main .chat__box .form{
+    width: 95%;
+    height: 200px;
+    /* border: solid black; */
+}
+
+.name__box{
+    width: 100%;
+    height: 60px;
+    position: relative;
+    overflow: hidden;
+}
+.name__box .input__name{
+    width: 250px;
+    height: 100%;
+    background: none;
+    color: #fff;
+    padding-top: 35px;
+    border: none;
+    outline: 0px;
+    border-bottom: 2px solid #2ecece;
+    font-size: 20px;
+    /* border:  solid black; */
+}
+.text__name{
+    position: absolute;
+    bottom: 35px;
+    left: 0;
+    color: #2ecece; 
+    font-size: 14px;
+}
+
+.msn__box{
+    width: 100%;
+    position: relative;
+}
+
+.msn__box .input__msn{
+    width: 100%;
+    height: 50%;
+    color: #fff ;
+    background: none;
+    /* padding-top: 75px; */
+    border: none;
+    outline: 0px;
+    border-bottom: 2px solid #2ecece;
+    font-size: 18px;
+    /* border:  solid black; */
+} 
+
+.submit{
+    /* position: absolute; */
+    bottom: 4px;
+    right: 0;
+    width: 110px;
+    height: 30px;
+    background-color: rgb(20, 50, 200);
+    font-weight: bold;
+    color: #fff;
+    border: none;
+}
+
+.submit:hover{
+    background-color: #2ecece;
+    font-size: 1em;
+    color: #000;
+} 
+
+
+@media screen and (max-width: 480px) {
+    .name__box .input__name{
+        width: 200px;
+    }
+}

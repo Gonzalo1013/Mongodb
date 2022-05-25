@@ -1,9 +1,19 @@
 const express = require('express')
 const app = express()
-const path = require('path')
+// const path = require('path')
+let msj = []
 
-//ARCHIVOS ESTATICOS 
+
+//Servidor HTTP
+const http = require('http')
+const server = http.createServer(app)
+
+
+
+// //ARCHIVOS ESTATICOS 
 app.use("/public", express.static('public'))
+app.use(express.static(__dirname + '/public'))
+app.use('/css', express.static('/public/css'))
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
 
@@ -23,11 +33,9 @@ const getCart = require('./routers/cartMethod/getCart')
 const addCart = require('./routers/cartMethod/addCart')
 app.use('/api/cart', [cart, deleteCart, getCart, addCart])
 
-//Router webSocket
-const rout_socket = require('./routers/socket')
-app.use('/', rout_socket)
 
-//ENGINE
+
+// //ENGINE
 app.set('view engine','ejs')
 app.set('views',['./views/viewsProducts', './views/viewsCart'])
 
@@ -36,33 +44,39 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
 
-//Servidor HTTP
-const http = require('http')
-const server = http.createServer(app)
+const routerSocket= require('./routers/socket') 
 
-//Servidor Socket
+
+
+//Puerto 
+const port = process.env.PORT || 8080
+
+// Router Socket
+app.use('/chat', routerSocket)
+
+
+//Servidor de Socket
 const {Server} = require('socket.io')
 const io = new Server(server)
 
 io.on('connection', (socket) => {
-    console.log('Usuario conectado');
-    //mensaje a cliente
-    socket.emit('message_to_client', 'Hola cliente!')
-    //Recibo mensaje desde el cliente
+    console.log('Usuario Conectado!');
+//envio mensjae de hola cliente al front
+    socket.emit('message_to_client', 'HOLA CLIENTE')
+//recibo mensjae de Hola servidor 
     socket.on('message_to_back', (data) => {
         console.log(data);
     })
-    //Recibo objeto del formulario
+//recibo objeto del formulario
     socket.on('text', (data) => {
-        msj.push(data);
-        io.sockets.emit('message', msj)
+        msj.push(data)
+        io.sockets.emit('messages', msj)
     })
 })
-
-
-
-const port = process.env.PORT || 8080
-
-app.listen(port, () => {
-    console.log('Server OK!!!');
+server.listen(port, () => {
+    console.log('SERVER OK!! open in ' + port);
 })
+
+
+
+

@@ -4,7 +4,7 @@ const {Router} = express
 const router = new Router()
 
 router.get('/', (req, res) => {
-    res.sendFile('/public/index.html', {root:'.'})
+    res.sendFile('public/socket.html', {root:'.'})
 })
 
 module.exports = router

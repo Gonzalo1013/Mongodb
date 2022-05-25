@@ -3,7 +3,7 @@ const socket = io()
 
 //Recibo mensaje de saludo desde el back
 socket.on('message_to_client', (data) => {
-    console.log(data);
+    console.log(data)
     //Respondo el saludo al back
     socket.emit('message_to_back', 'Hola BACK!!')
 })

@@ -4,11 +4,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo ventas</title>
+    <title>Document</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/public/css/home.css">
+    <link rel="stylesheet" href="/public/css/socket.css">
 </head>
 <body class="body">
+
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">Home</a>
@@ -40,12 +41,31 @@
         </div>
         <a href="/api/cart/1/products"><img src="/public/icon/logoCarrito.png" alt="cart" style="width:35px; margin-right: 16px;"></a>
       </nav>
-    <div class="box">
-        <a href="/api/products/product" class="btn btn-success prod">Ver los productos</a>
-        <a href="/api/cart/1/products" class="btn btn-success cart">Ir al carrito</a>
-    </div>
-    <a href="/chat"><input type="submit" value="ir al Chat" class="btn btn-warning chat"></a>
-    
-  </div>
+
+    <!-- <img class="img" src="https://img.freepik.com/psd-gratis/plantilla-maqueta-pantalla-telefono-movil-premium_53876-65749.jpg?w=2000" alt="img"> -->
+    <main class=" main">
+
+        <div class="chat__box">
+            <div id="caja" class="box"></div>
+            <form  onsubmit="return addMsn()" class="form">
+                <div class="name__box">
+                    <label class="lbl">
+                        <span class="text__name">Nombre:</span>
+                    </label>
+                    <input type="text"  id="name" class="input__name" required>
+                </div>
+                <br>
+                
+                <div class="msn__box">
+                    <!-- <input type="text" placeholder="mensaje" id="msn" class="input__msn" required> -->
+                    <textarea  id="msn" class="input__msn" cols="45" rows="2" required placeholder="mensaje:"></textarea>
+                </div>
+                <input type="submit" value="Enviar msj" class="submit">
+            </form>
+            
+        </div>
+</main>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>
