@@ -6,23 +6,26 @@
     <%-include('../templates/nav.ejs') %>
 
     <h1>Carrito de compras</h1>
+
     <main class="main">
-        <div class="containerBox">
-        
             <% data.forEach( x => { %>
-            <li class="boxx" >
+            <li class="boxx">
                 <img src="/public/uploads/<%= x.thumbnail %>" class="card__img" alt="<%= x.thumbnail %>">
     
                 <div class="li__body">
-                    <p class="card__title"><%= x.title %></p>
-                    <p>$<%= x.price%></p>
-                    <p>stock:<%= x.stock%></p>
+                    <div class="p">
+                        <h5 class="card__title"><%= x.title %></h5>
+                    </div>
+                    <div>
+                        <b class="p">$<%= x.price%></b>
+                    </div>
+                    <div class="p">
+                        <p>stock:<%= x.stock%></p>
+                    </div>
                     <input type="submit" value="Comprar" class="btn btn-success">
                 </div>
             </li>
             <% }) %>
-    
-        </div>
     </main>
     
     

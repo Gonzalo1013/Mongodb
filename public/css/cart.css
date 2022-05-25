@@ -1,31 +1,30 @@
 .body{
-    
+    background-color: #2c2c2c;
     height: 70vh;
+    text-align: center;
 }
-
+.body h1{
+    margin: 16px;
+}
 .body .main {
     display: flex;
-    /* flex-direction: column; */
     justify-content: center;
-}
-.body .main .containerBox{
-    width: 1000px;
-    height: 75px;
-    border: solid black;
-    background-color: #7c9c9c;
-    border-radius: 10px;
-    margin-bottom: 16px;
+    flex-flow: row wrap;
 }
 
-.body .main .containerBox .boxx{
-    width: 100%;
+.body .main .boxx{
+    width: 1000px;
+    height: 75px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100%;
+    border-radius: 10px;
+    background-color: #7c9c9c;
+    margin-bottom: 16px;
+    border: solid black;
 }
 
-.body .main .containerBox .boxx .li__body{
+.body .main .boxx .li__body{
     display: flex;
     /* flex-flow: row nowrap; */
     justify-content: space-around;
@@ -36,15 +35,16 @@
     height: 100%;
 }
 
-.body .main .containerBox .boxx .li__body p{
+.body .main .boxx .li__body .p{
     /* display: flex; */
     /* justify-content: center; */
     align-items: center;
-    border: solid black;
     height: 30px;
 }
 
-.body .containerBox .boxx .card__img{
+.body .main .boxx .card__img{
     width: 70px;
+    padding: 5px;
     margin-left: 16px;
+    border-radius: 50px;
 }

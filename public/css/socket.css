@@ -1,0 +1,21 @@
+.body .chat__box{
+    position: absolute;
+    top: 80px;
+    right: 16px;
+    bottom: 0;
+    width: 300px;
+    height: 100%;
+    border: solid black;
+}
+.body .chat__box .box .form{
+    height: 100%;
+}
+
+.body .chat__box .box{
+    height: 70%;
+    border: solid black;
+    margin: 16px;
+}
+/* .body .chat__box .box .form .name_box{
+
+} */

@@ -9,13 +9,11 @@ app.use(express.urlencoded({extended:false}))
 
 
 //ROUTERS for products
-// const products = require('./routers/products')
 const getAll_products = require('./routers/methodProducts/getAllProduct')
 const get_by_id = require('./routers/methodProducts/idProduct')
 const add_Product = require('./routers/methodProducts/addProduct')
 const change_Product = require('./routers/methodProducts/changeProduct')
 const delete_Product = require('./routers/methodProducts/deleteProduct')
-
 app.use('/api/products', [getAll_products, get_by_id, add_Product, change_Product, delete_Product])
 
 //Routers for cart
@@ -25,6 +23,9 @@ const getCart = require('./routers/cartMethod/getCart')
 const addCart = require('./routers/cartMethod/addCart')
 app.use('/api/cart', [cart, deleteCart, getCart, addCart])
 
+//Router webSocket
+const rout_socket = require('./routers/socket')
+app.use('/', rout_socket)
 
 //ENGINE
 app.set('view engine','ejs')
@@ -34,6 +35,31 @@ app.set('views',['./views/viewsProducts', './views/viewsCart'])
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/public/index.html')
 })
+
+//Servidor HTTP
+const http = require('http')
+const server = http.createServer(app)
+
+//Servidor Socket
+const {Server} = require('socket.io')
+const io = new Server(server)
+
+io.on('connection', (socket) => {
+    console.log('Usuario conectado');
+    //mensaje a cliente
+    socket.emit('message_to_client', 'Hola cliente!')
+    //Recibo mensaje desde el cliente
+    socket.on('message_to_back', (data) => {
+        console.log(data);
+    })
+    //Recibo objeto del formulario
+    socket.on('text', (data) => {
+        msj.push(data);
+        io.sockets.emit('message', msj)
+    })
+})
+
+
 
 const port = process.env.PORT || 8080
 
